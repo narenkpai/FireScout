@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FireScout</title>
+    <style>
+        html { font-family: "Trebuchet MS"; text-align: center; }
+        body {
+            height: 100vh; width: 100vw;
+            background-color: #fafafa;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-top: 2vh;
+            font-size: 4vh;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 96vw;
+            height: 85vh;
+        }
+        .left, .right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1vh;
+        }
+        .canvas-title {
+            font-size: 3vh;
+            margin-bottom: 0.5vh;
+        }
+        .canvas-wrapper {
+            position: relative;
+            width: 46vw;
+            height: calc(100vh - 16vh);
+        }
+        .canvas-box {
+            background-color: white;
+            border: 3px solid gray; 
+            border-radius: 20px;
+            width: 46vw;
+            height: calc(100vh - 20vh);
+            cursor: crosshair;
+        }
+        #map, #poi {
+            height: calc((100vh - 24vh) / 2);
+        }
+        #flight {
+            height: calc((100vh - 24vh) - (10vw - 6vw));
+            background-image: url('background.jpg');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        #brushes {
+            position: absolute; left: 2vw; bottom: 2vw;
+            width: 46vw; height: calc(10vw - 6vw);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        .brush {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .brush:hover {
+            transform: scale(1.1);
+        }
+        .brush.active {
+            border: 3px solid #333;
+        }
+        #fire-brush {
+            background-color: orange;
+        }
+        #poi-brush {
+            background-color: #00ffea;
+            position: relative;
+        }
+        #poi-brush::after {
+            content: "!";
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: black;
+            font-size: 24px;
+        }
+        #start-sim:hover {
+            transform: scale(1.1);
+        }
+        #start-sim {
+            position: relative;
+            background-color: #d3d3d3;
+            height: 40px; width: 80px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #start-sim::after {
+            content: "Start";
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: black;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>FireScout</h1>
+    <div class="container">
+        <div class="left">
+            <h2 class="canvas-title">The Forest</h2>
+            <canvas id="flight" class="canvas-box"></canvas>
+            <div id="brushes">
+                <div id="fire-brush" class="brush"></div>
+                <div id="poi-brush" class="brush"></div>
+                <div id="start-sim" onclick="start()"></div>
+                <p>Add fire and points of interest using the brushes on the left.<br>Then click the Start button to run the simulation.</p>
+            </div>
+        </div>
+        <div class="right">
+            <h2 class="canvas-title">Flight Map</h2>
+            <canvas id="map" class="canvas-box"></canvas>
+            <h2 class="canvas-title">Fire / POI Map</h2>
+            <canvas id="poi" class="canvas-box"></canvas>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
+
